@@ -1,0 +1,15 @@
+// Jewlja - MVP Starter
+
+import { useState } from "react"; import { Card, CardContent } from "@/components/ui/card"; import { Button } from "@/components/ui/button"; import { Input } from "@/components/ui/input"; import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+const categories = [ "Furniture", "Lighting", "Textiles", "Wall Art", "Architectural Decor", ];
+
+const sampleProducts = [ { id: 1, name: "Handcrafted Oak Lounge Chair", category: "Furniture", price: "€480", image: "/images/oak-chair.jpg", }, { id: 2, name: "Minimal Concrete Coffee Table", category: "Furniture", price: "€290", image: "/images/concrete-table.jpg", }, { id: 3, name: "Brass Wall Sconce (Pair)", category: "Lighting", price: "€150", image: "/images/brass-sconce.jpg", }, { id: 4, name: "Moroccan Wool Rug", category: "Textiles", price: "€220", image: "/images/wool-rug.jpg", }, { id: 5, name: "Abstract Architecture Print", category: "Wall Art", price: "€40", image: "/images/abstract-print.jpg", }, ];
+
+export default function Home() { const [selectedCategory, setSelectedCategory] = useState("Furniture"); const filteredProducts = sampleProducts.filter( (p) => p.category === selectedCategory );
+
+return ( <div className="p-6 max-w-5xl mx-auto"> <h1 className="text-4xl font-bold mb-6">Jewlja – Curated Local Design</h1> <Tabs defaultValue={selectedCategory} onValueChange={setSelectedCategory}> <TabsList className="mb-4"> {categories.map((cat) => ( <TabsTrigger key={cat} value={cat}> {cat} </TabsTrigger> ))} </TabsList> </Tabs> <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"> {filteredProducts.map((product) => ( <Card key={product.id}> <img
+src={product.image}
+alt={product.name}
+className="rounded-t-xl w-full h-48 object-cover"
+/> <CardContent className="p-4"> <h2 className="text-xl font-semibold">{product.name}</h2> <p className="text-sm text-muted-foreground mb-2"> {product.category} </p> <p className="text-lg font-bold">{product.price}</p> <Button className="mt-3 w-full">View Product</Button> </CardContent> </Card> ))} </div> </div> ); }
